@@ -28,8 +28,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>632</width>
-         <height>517</height>
+         <width>948</width>
+         <height>518</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -48,7 +48,7 @@
      <x>0</x>
      <y>0</y>
      <width>993</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -76,7 +76,7 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="GridSettingsWidget" name="widget" native="true"/>
+      <widget class="GridSettingsWidget" name="settingsWidget" native="true"/>
      </item>
     </layout>
    </widget>

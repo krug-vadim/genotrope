@@ -14,8 +14,18 @@ class ImageGridWidget : public QWidget
 
 		QSize imageSize() const;
 
+		QImage *image() const;
+
+		QPoint offset() const;
+		QSize grid() const;
+
 	public slots:
-		void drawData(const quint16 data[]);
+		void setOffset(const QPoint &offset);
+		void setOffset(const int x, const int y);
+
+		void setGrid(const QSize &grid);
+		void setGrid(const int w, const int h);
+
 		void save(const QString &filename);
 		void save(QImage &image, const QPoint &destPos);
 		void load(const QString &filename);
@@ -24,6 +34,11 @@ class ImageGridWidget : public QWidget
 		void paintEvent(QPaintEvent * event);
 
 	private:
+		void drawGrid(QPainter &painter);
+
+		QPoint _offset;
+		QSize _grid;
+
 		QImage *_displayImage;
 };
 

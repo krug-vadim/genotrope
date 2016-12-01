@@ -11,6 +11,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	connect(ui->actionFileOpen, SIGNAL(triggered()),
 	        this, SLOT(openImage()));
+
+	// grid & pos settings
+	ui->settingsWidget->setOffset(ui->gridImageWidget->offset());
+	ui->settingsWidget->setGrid(ui->gridImageWidget->grid());
+
+	connect(ui->settingsWidget, SIGNAL(offsetChanged(const QPoint)),
+	        ui->gridImageWidget, SLOT(setOffset(const QPoint)));
+	connect(ui->settingsWidget, SIGNAL(gridChanged(const QSize)),
+	        ui->gridImageWidget, SLOT(setGrid(const QSize)));
 }
 
 MainWindow::~MainWindow()

@@ -7,6 +7,9 @@ ImageGridWidget::ImageGridWidget(QWidget *parent) : QWidget(parent)
 	_displayImage = new QImage(50, 50, QImage::Format_ARGB32_Premultiplied);
 	_displayImage->fill(Qt::red);
 	setMinimumSize(_displayImage->size());
+
+	setOffset(0, 0);
+	setGrid(8, 8);
 }
 
 ImageGridWidget::~ImageGridWidget()
@@ -19,24 +22,41 @@ QSize ImageGridWidget::imageSize() const
 	return _displayImage->size();
 }
 
-void ImageGridWidget::drawData(const quint16 data[576])
+QImage* ImageGridWidget::image() const
 {
-	int x;
+	return _displayImage;
+}
 
-	x = 0;
-	for(int i = 0; i < 576; i++)
-	{
-		int y;
-		int val = (int)data[i] * _displayImage->height() / 65535;
+QPoint ImageGridWidget::offset() const
+{
+	return _offset;
+}
 
-		for(y = 0; y < val; y++)
-			_displayImage->setPixel(x, _displayImage->height() - y - 1, qRgb(0,255,0));
+void ImageGridWidget::setOffset(const QPoint &offset)
+{
+	_offset = offset;
+	repaint();
+}
 
-		for(;y < _displayImage->height(); y++)
-			_displayImage->setPixel(x, _displayImage->height() - y - 1, qRgb(0,0,0));
+void ImageGridWidget::setOffset(const int x, const int y)
+{
+	setOffset( QPoint(x,y) );
+}
 
-		x++;
-	}
+QSize ImageGridWidget::grid() const
+{
+	return _grid;
+}
+
+void ImageGridWidget::setGrid(const QSize &grid)
+{
+	_grid = grid;
+	repaint();
+}
+
+void ImageGridWidget::setGrid(const int w, const int h)
+{
+	setGrid( QSize(w,h) );
 }
 
 void ImageGridWidget::save(const QString &filename)
@@ -59,7 +79,24 @@ void ImageGridWidget::load(const QString& filename)
 
 void ImageGridWidget::paintEvent(QPaintEvent *event)
 {
+	Q_UNUSED(event);
 	QPainter painter(this);
-	//painter.scale((qreal)width() / _displayImage->width(), (qreal)height()/_displayImage->height());
+
 	painter.drawImage(0, 0, *_displayImage);
+	drawGrid(painter);
+}
+
+void ImageGridWidget::drawGrid(QPainter &painter)
+{
+	if ( grid().width() != 0 )
+	{
+		for(int x = offset().x(); x < image()->width(); x += grid().width())
+			painter.drawLine(x, offset().y(), x, image()->height());
+	}
+
+	if ( grid().height() != 0 )
+	{
+		for(int y = offset().y(); y < image()->height(); y += grid().height())
+			painter.drawLine(offset().x(), y, image()->width(), y);
+	}
 }

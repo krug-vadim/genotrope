@@ -3,7 +3,8 @@
 
 #include <QWidget>
 
-namespace Ui {
+namespace Ui
+{
 class Coord2DInput;
 }
 
@@ -22,8 +23,17 @@ class Coord2DInput : public QWidget
 		int y() const;
 		QPoint pos() const;
 
+		void setX(const int x);
+		void setY(const int y);
+		void setPos(const int x, const int y);
+		void setPos(const QPoint &pos);
+
 		void setXLimits(const int min, const int max, const int step);
 		void setYLimits(const int min, const int max, const int step);
+
+	signals:
+		void xChanged(int value);
+		void yChanged(int value);
 
 	private:
 		Ui::Coord2DInput *ui;

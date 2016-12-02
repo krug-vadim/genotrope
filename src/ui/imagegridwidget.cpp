@@ -12,6 +12,7 @@ ImageGridWidget::ImageGridWidget(QWidget *parent) : QWidget(parent)
 	setGrid(8, 8);
 	setSpacing(2, 2);
 	setColor(QColor(0,255,0,64));
+	setScale(1.0f, 1.0f);
 }
 
 ImageGridWidget::~ImageGridWidget()
@@ -60,6 +61,11 @@ QColor ImageGridWidget::color() const
 	return _color;
 }
 
+QPointF ImageGridWidget::scale() const
+{
+	return _scale;
+}
+
 void ImageGridWidget::setGrid(const QSize &grid)
 {
 	_grid = grid;
@@ -88,6 +94,17 @@ void ImageGridWidget::setColor(const QColor &color)
 	repaint();
 }
 
+void ImageGridWidget::setScale(const double x, const double y)
+{
+	setScale( QPointF(x,y) );
+}
+
+void ImageGridWidget::setScale(const QPointF &scale)
+{
+	_scale = scale;
+	repaint();
+}
+
 void ImageGridWidget::save(const QString &filename)
 {
 	_displayImage->save(filename, "PNG");
@@ -111,7 +128,11 @@ void ImageGridWidget::paintEvent(QPaintEvent *event)
 	Q_UNUSED(event);
 	QPainter painter(this);
 
+	painter.save();
+	painter.scale(scale().x(), scale().y());
 	painter.drawImage(0, 0, *_displayImage);
+	painter.restore();
+
 	drawGrid(painter);
 }
 

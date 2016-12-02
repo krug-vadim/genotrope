@@ -30,6 +30,12 @@ GridSettingsWidget::GridSettingsWidget(QWidget *parent) :
 	// color
 	connect(ui->colorChooseButton, SIGNAL(clicked()),
 	        this, SLOT(chooseColor()));
+
+	// scale
+	connect(ui->scaleInput, SIGNAL(xChanged(double)),
+	        this, SLOT(scaleUpdate()));
+	connect(ui->scaleInput, SIGNAL(yChanged(double)),
+	        this, SLOT(scaleUpdate()));
 }
 
 GridSettingsWidget::~GridSettingsWidget()
@@ -58,6 +64,11 @@ void GridSettingsWidget::setColor(const QColor &color)
 	ui->colorBox->setPalette(QPalette(color));
 }
 
+void GridSettingsWidget::setScale(const QPointF &scale)
+{
+	ui->scaleInput->setPos(scale);
+}
+
 void GridSettingsWidget::offsetUpdate()
 {
 	emit offsetChanged( ui->offsetInput->pos() );
@@ -73,6 +84,11 @@ void GridSettingsWidget::spacingUpdate()
 {
 	QPoint pos = ui->spacingInput->pos();
 	emit spacingChanged( QSize(pos.x(), pos.y()) );
+}
+
+void GridSettingsWidget::scaleUpdate()
+{
+	emit scaleChanged( ui->scaleInput->pos() );
 }
 
 void GridSettingsWidget::chooseColor()

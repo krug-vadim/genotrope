@@ -8,15 +8,18 @@ SOURCES += \
     src/ui/mainwindow.cpp \
     src/ui/imagegridwidget.cpp \
     src/ui/coord2dinput.cpp \
+    src/ui/coord2finput.cpp \
     src/ui/gridsettingswidget.cpp
 
 FORMS += \
     src/ui/mainwindow.ui \
     src/ui/coord2dinput.ui \
+    src/ui/coord2finput.ui \
     src/ui/gridsettingswidget.ui
 
 HEADERS += \
     src/ui/mainwindow.h \
     src/ui/imagegridwidget.h \
     src/ui/coord2dinput.h \
+    src/ui/coord2finput.h \
     src/ui/gridsettingswidget.h

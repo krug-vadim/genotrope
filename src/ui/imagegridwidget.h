@@ -21,6 +21,7 @@ class ImageGridWidget : public QWidget
 		QSize grid() const;
 		QSize spacing() const;
 		QColor color() const;
+		QPointF scale() const;
 
 	public slots:
 		void setOffset(const QPoint &offset);
@@ -33,6 +34,9 @@ class ImageGridWidget : public QWidget
 		void setSpacing(const int w, const int h);
 
 		void setColor(const QColor &color);
+
+		void setScale(const double x, const double y);
+		void setScale(const QPointF &scale);
 
 		void save(const QString &filename);
 		void save(QImage &image, const QPoint &destPos);
@@ -48,6 +52,7 @@ class ImageGridWidget : public QWidget
 		QSize _grid;
 		QSize _spacing;
 		QColor _color;
+		QPointF _scale;
 
 		QImage *_displayImage;
 };

@@ -21,17 +21,20 @@ class GridSettingsWidget : public QWidget
 		void setGrid(const QSize &size);
 		void setSpacing(const QSize &spacing);
 		void setColor(const QColor &color);
+		void setScale(const QPointF &scale);
 
 	signals:
 		void offsetChanged(const QPoint &pos);
 		void gridChanged(const QSize &size);
 		void spacingChanged(const QSize &spacing);
 		void colorChanged(const QColor &color);
+		void scaleChanged(const QPointF &scale);
 
 	private slots:
 		void offsetUpdate();
 		void gridUpdate();
 		void spacingUpdate();
+		void scaleUpdate();
 
 		void chooseColor();
 

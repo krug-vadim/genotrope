@@ -23,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
 	        ui->gridImageWidget, SLOT(setGrid(const QSize)));
 	connect(ui->settingsWidget, SIGNAL(spacingChanged(const QSize)),
 	        ui->gridImageWidget, SLOT(setSpacing(const QSize)));
+
+	// color
+	ui->settingsWidget->setColor(ui->gridImageWidget->color());
+	connect(ui->settingsWidget, SIGNAL(colorChanged(const QColor)),
+	        ui->gridImageWidget, SLOT(setColor(const QColor)));
 }
 
 MainWindow::~MainWindow()

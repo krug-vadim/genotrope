@@ -11,6 +11,7 @@ ImageGridWidget::ImageGridWidget(QWidget *parent) : QWidget(parent)
 	setOffset(0, 0);
 	setGrid(8, 8);
 	setSpacing(2, 2);
+	setColor(QColor(0,255,0,64));
 }
 
 ImageGridWidget::~ImageGridWidget()
@@ -54,6 +55,11 @@ QSize ImageGridWidget::spacing() const
 	return _spacing;
 }
 
+QColor ImageGridWidget::color() const
+{
+	return _color;
+}
+
 void ImageGridWidget::setGrid(const QSize &grid)
 {
 	_grid = grid;
@@ -74,6 +80,12 @@ void ImageGridWidget::setSpacing(const QSize &spacing)
 void ImageGridWidget::setSpacing(const int w, const int h)
 {
 	setSpacing( QSize(w,h) );
+}
+
+void ImageGridWidget::setColor(const QColor &color)
+{
+	_color = color;
+	repaint();
 }
 
 void ImageGridWidget::save(const QString &filename)
@@ -106,6 +118,8 @@ void ImageGridWidget::paintEvent(QPaintEvent *event)
 void ImageGridWidget::drawGrid(QPainter &painter)
 {
 	int step;
+
+	painter.setPen(color());
 
 	if ( grid().width() != 0 )
 	{

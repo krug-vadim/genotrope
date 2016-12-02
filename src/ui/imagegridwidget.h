@@ -2,6 +2,7 @@
 #define IMAGEGRIDWIDGET_H
 
 #include <QtWidgets/QWidget>
+
 class QImage;
 
 class ImageGridWidget : public QWidget
@@ -19,6 +20,7 @@ class ImageGridWidget : public QWidget
 		QPoint offset() const;
 		QSize grid() const;
 		QSize spacing() const;
+		QColor color() const;
 
 	public slots:
 		void setOffset(const QPoint &offset);
@@ -29,6 +31,8 @@ class ImageGridWidget : public QWidget
 
 		void setSpacing(const QSize &spacing);
 		void setSpacing(const int w, const int h);
+
+		void setColor(const QColor &color);
 
 		void save(const QString &filename);
 		void save(QImage &image, const QPoint &destPos);
@@ -43,6 +47,7 @@ class ImageGridWidget : public QWidget
 		QPoint _offset;
 		QSize _grid;
 		QSize _spacing;
+		QColor _color;
 
 		QImage *_displayImage;
 };

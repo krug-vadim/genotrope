@@ -18,6 +18,7 @@ class ImageGridWidget : public QWidget
 
 		QPoint offset() const;
 		QSize grid() const;
+		QSize spacing() const;
 
 	public slots:
 		void setOffset(const QPoint &offset);
@@ -25,6 +26,9 @@ class ImageGridWidget : public QWidget
 
 		void setGrid(const QSize &grid);
 		void setGrid(const int w, const int h);
+
+		void setSpacing(const QSize &spacing);
+		void setSpacing(const int w, const int h);
 
 		void save(const QString &filename);
 		void save(QImage &image, const QPoint &destPos);
@@ -38,6 +42,7 @@ class ImageGridWidget : public QWidget
 
 		QPoint _offset;
 		QSize _grid;
+		QSize _spacing;
 
 		QImage *_displayImage;
 };

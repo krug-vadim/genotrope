@@ -19,14 +19,17 @@ class GridSettingsWidget : public QWidget
 	public slots:
 		void setOffset(const QPoint &pos);
 		void setGrid(const QSize &size);
+		void setSpacing(const QSize &spacing);
 
 	signals:
 		void offsetChanged(const QPoint &pos);
 		void gridChanged(const QSize &size);
+		void spacingChanged(const QSize &spacing);
 
 	private slots:
 		void offsetUpdate();
 		void gridUpdate();
+		void spacingUpdate();
 
 	private:
 		Ui::GridSettingsWidget *ui;

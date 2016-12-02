@@ -4,12 +4,13 @@
 
 ImageGridWidget::ImageGridWidget(QWidget *parent) : QWidget(parent)
 {
-	_displayImage = new QImage(50, 50, QImage::Format_ARGB32_Premultiplied);
+	_displayImage = new QImage(150, 150, QImage::Format_ARGB32_Premultiplied);
 	_displayImage->fill(Qt::red);
 	setMinimumSize(_displayImage->size());
 
 	setOffset(0, 0);
 	setGrid(8, 8);
+	setSpacing(2, 2);
 }
 
 ImageGridWidget::~ImageGridWidget()
@@ -48,6 +49,11 @@ QSize ImageGridWidget::grid() const
 	return _grid;
 }
 
+QSize ImageGridWidget::spacing() const
+{
+	return _spacing;
+}
+
 void ImageGridWidget::setGrid(const QSize &grid)
 {
 	_grid = grid;
@@ -57,6 +63,17 @@ void ImageGridWidget::setGrid(const QSize &grid)
 void ImageGridWidget::setGrid(const int w, const int h)
 {
 	setGrid( QSize(w,h) );
+}
+
+void ImageGridWidget::setSpacing(const QSize &spacing)
+{
+	_spacing = spacing;
+	repaint();
+}
+
+void ImageGridWidget::setSpacing(const int w, const int h)
+{
+	setSpacing( QSize(w,h) );
 }
 
 void ImageGridWidget::save(const QString &filename)
@@ -88,15 +105,25 @@ void ImageGridWidget::paintEvent(QPaintEvent *event)
 
 void ImageGridWidget::drawGrid(QPainter &painter)
 {
+	int step;
+
 	if ( grid().width() != 0 )
 	{
-		for(int x = offset().x(); x < image()->width(); x += grid().width())
+		step = grid().width() + spacing().width();
+
+		for(int x = offset().x(); x < image()->width(); x += step)
+			painter.drawLine(x, offset().y(), x, image()->height());
+
+		for(int x = offset().x() + grid().width(); x < image()->width(); x += step)
 			painter.drawLine(x, offset().y(), x, image()->height());
 	}
 
 	if ( grid().height() != 0 )
 	{
-		for(int y = offset().y(); y < image()->height(); y += grid().height())
+		step = grid().height() + spacing().height();
+		for(int y = offset().y(); y < image()->height(); y += step)
+			painter.drawLine(offset().x(), y, image()->width(), y);
+		for(int y = offset().y() + grid().height(); y < image()->height(); y += step)
 			painter.drawLine(offset().x(), y, image()->width(), y);
 	}
 }

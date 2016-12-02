@@ -15,11 +15,14 @@ MainWindow::MainWindow(QWidget *parent) :
 	// grid & pos settings
 	ui->settingsWidget->setOffset(ui->gridImageWidget->offset());
 	ui->settingsWidget->setGrid(ui->gridImageWidget->grid());
+	ui->settingsWidget->setSpacing(ui->gridImageWidget->spacing());
 
 	connect(ui->settingsWidget, SIGNAL(offsetChanged(const QPoint)),
 	        ui->gridImageWidget, SLOT(setOffset(const QPoint)));
 	connect(ui->settingsWidget, SIGNAL(gridChanged(const QSize)),
 	        ui->gridImageWidget, SLOT(setGrid(const QSize)));
+	connect(ui->settingsWidget, SIGNAL(spacingChanged(const QSize)),
+	        ui->gridImageWidget, SLOT(setSpacing(const QSize)));
 }
 
 MainWindow::~MainWindow()
